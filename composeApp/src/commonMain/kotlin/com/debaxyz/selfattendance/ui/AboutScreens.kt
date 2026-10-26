@@ -20,6 +20,9 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
 /* ============================================================
  *  ABOUT + OPEN SOURCE LICENSES
@@ -86,6 +89,9 @@ fun AboutCard() {
 private fun AboutDialog(onDismiss: () -> Unit, onOpenLicenses: () -> Unit) {
     val cs = MaterialTheme.colorScheme
     val version = rememberAppVersion()
+    val year = remember {
+        Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).year
+    }
 
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -109,7 +115,7 @@ private fun AboutDialog(onDismiss: () -> Unit, onOpenLicenses: () -> Unit) {
                     style = MaterialTheme.typography.bodyMedium,
                     color = cs.onSurfaceVariant
                 )
-                Text("© ${java.time.Year.now()} debaxyz", style = MaterialTheme.typography.bodySmall, color = cs.onSurfaceVariant)
+                Text("© $year debaxyz", style = MaterialTheme.typography.bodySmall, color = cs.onSurfaceVariant)
             }
         },
         confirmButton = { TextButton(onClick = onDismiss) { Text("Close") } },
