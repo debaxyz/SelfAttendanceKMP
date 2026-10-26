@@ -928,7 +928,8 @@ fun AuthScreen(
                                 } catch (e: Exception) {
                                     if (e !is CancellationException) {
                                         isResetting = false
-                                        resetError = e.localizedMessage ?: "Failed to send reset link."
+                                        // `localizedMessage` is JVM-only; use common `message`.
+                                        resetError = e.message ?: "Failed to send reset link."
                                     }
                                 }
                             }
